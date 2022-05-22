@@ -5,21 +5,22 @@ import pytesseract, requests, tempfile
 TEMP_FILE = tempfile.NamedTemporaryFile(mode='r+', suffix='.png').name
 URL = 'https://www.vpnbook.com/password.php'
 IMAGE_DATA = requests.get(URL).content
+print(IMAGE_DATA)
 with open(TEMP_FILE, 'wb') as file: file.write(IMAGE_DATA)
-
 pswdImg = Image.open(TEMP_FILE)
 pswdImg = pswdImg.resize((100, 20))
 pswd = pytesseract.image_to_string(pswdImg, config='--psm 6')
 print(pswd)
-savePswd = open("/etc/openvpn/password.txt", "w")
-savePswd.write("vpnbook\n"+pswd)
-savePswd.close()
 
+URL = 'https://raw.githubusercontent.com/walidbadar/freevpn/master/vpnPswd.txt'
+open('password.txt', 'wb').write(requests.get(URL).content)
+
+vpn = 'https://www.vpnbook.com/free-openvpn-account/VPNBook.com-OpenVPN-FR1.zip'
 response = requests.get(vpn)
 open("/etc/openvpn/openvpn.zip", "wb").write(response.content)
-os.system("sudo unzip -o  openvpn.zip")
+os.system("sudo unzip -o /etc/openvpn/openvpn.zip")
 
-vpnSetting = open("vpnbook-fr1-udp53.ovpn", "r")
+vpnSetting = open("/etc/openvpn/vpnbook-fr1-udp53.ovpn", "r")
 replacement = ""
 for line in vpnSetting:
     line = line.strip()
