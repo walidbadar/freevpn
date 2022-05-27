@@ -15,18 +15,18 @@ import pytesseract, requests, tempfile
 URL = 'https://raw.githubusercontent.com/walidbadar/freevpn/master/vpnPswd.txt'
 open('password.txt', 'wb').write(requests.get(URL).content)
 
-vpn = 'https://www.vpnbook.com/free-openvpn-account/VPNBook.com-OpenVPN-FR1.zip'
+vpn = 'https://www.vpnbook.com/free-openvpn-account/VPNBook.com-OpenVPN-US1.zip'
 response = requests.get(vpn)
 open("/etc/openvpn/openvpn.zip", "wb").write(response.content)
 os.system("sudo unzip -o /etc/openvpn/openvpn.zip")
 
-vpnSetting = open("/etc/openvpn/vpnbook-fr1-udp53.ovpn", "r")
+vpnSetting = open("/etc/openvpn/vpnbook-us1-udp53.ovpn", "r")
 replacement = ""
 for line in vpnSetting:
     line = line.strip()
     changes = line.replace("auth-user-pass", "auth-user-pass /etc/openvpn/password.txt")
     replacement = replacement + changes + "\n"
 vpnSetting.close()
-vpnSetting = open("vpnbook-fr1-udp53.ovpn", "w")
+vpnSetting = open("vpnbook-us1-udp53.ovpn", "w")
 vpnSetting.write(replacement)
 vpnSetting.close()
