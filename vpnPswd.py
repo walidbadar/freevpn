@@ -2,15 +2,15 @@
 from PIL import Image
 import pytesseract, requests, tempfile
 
-TEMP_FILE = tempfile.NamedTemporaryFile(mode='r+', suffix='.png').name
-URL = 'https://www.vpnbook.com/password.php'
-IMAGE_DATA = requests.get(URL).content
-print(IMAGE_DATA)
-with open(TEMP_FILE, 'wb') as file: file.write(IMAGE_DATA)
-pswdImg = Image.open(TEMP_FILE)
-pswdImg = pswdImg.resize((100, 20))
-pswd = pytesseract.image_to_string(pswdImg, config='--psm 6')
-print(pswd)
+# TEMP_FILE = tempfile.NamedTemporaryFile(mode='r+', suffix='.png').name
+# URL = 'https://www.vpnbook.com/password.php'
+# IMAGE_DATA = requests.get(URL).content
+# print(IMAGE_DATA)
+# with open(TEMP_FILE, 'wb') as file: file.write(IMAGE_DATA)
+# pswdImg = Image.open(TEMP_FILE)
+# pswdImg = pswdImg.resize((100, 20))
+# pswd = pytesseract.image_to_string(pswdImg, config='--psm 6')
+# print(pswd)
 
 URL = 'https://raw.githubusercontent.com/walidbadar/freevpn/master/vpnPswd.txt'
 open('password.txt', 'wb').write(requests.get(URL).content)
