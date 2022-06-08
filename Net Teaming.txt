@@ -5,12 +5,11 @@ Configure Network Team Using ifcfg Files [Persistent]
 DEVICE=team0
 DEVICETYPE=Team
 ONBOOT=yes
-BOOTPROTO=dhcp
+BOOTPROTO=none
 NM_CONTROLLED=no
-#IPADDR=192.168.11.1
+IPADDR=222.22.1.222
 PREFIX=24
 TEAM_CONFIG='{"runner": {"name": "activebackup"}, "link_watch": {"name": "ethtool"}}'
-Note: the teaming interface team0 can also have static ip with BOOTPROTO=none
 
 2. Edit the files for respective interface (here I have added two interface enp0s8 & enp0s9):
 # cat /etc/sysconfig/network-scripts/ifcfg-enp0s8
