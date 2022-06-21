@@ -1,5 +1,12 @@
 # coding=utf-8
-import requests, tempfile, os
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
+from webdriver_manager.chrome import ChromeDriverManager
+import requests, urllib.request, tempfile, os, time
 
 # TEMP_FILE = tempfile.NamedTemporaryFile(mode='r+', suffix='.png').name
 # URL = 'https://www.vpnbook.com/password.php'
@@ -11,12 +18,20 @@ import requests, tempfile, os
 # pswd = pytesseract.image_to_string(pswdImg, config='--psm 6')
 # print(pswd)
 
-URL = 'https://raw.githubusercontent.com/walidbadar/freevpn/master/vpnPswd.txt'
-open('/etc/openvpn/password.txt', 'wb').write(requests.get(URL).content)
+vpnPswd = "https://raw.githubusercontent.com/walidbadar/freevpn/master/vpnPswd.txt"
+# open('/etc/openvpn/password.txt', 'wb').write(urllib.request.urlopen(vpnPswd).read())
+
+options = Options()
+options.add_argument("--headless")
+driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+driver.get(vpnPswd)
+pswd = WebDriverWait(driver, 10).until(ec.element_to_be_clickable((By.XPATH, '/html/body/pre'))).text
+print(pswd)
+driver.quit()
+open('/etc/openvpn/password.txt', 'w').write(pswd)
 
 vpn = 'https://www.vpnbook.com/free-openvpn-account/VPNBook.com-OpenVPN-US1.zip'
-response = requests.get(vpn)
-open("/etc/openvpn/openvpn.zip", "wb").write(response.content)
+open("/etc/openvpn/openvpn.zip", "wb").write(requests.get(vpn).content)
 os.system("sudo unzip -o /etc/openvpn/openvpn.zip -d /etc/openvpn")
 
 vpnSetting = open("/etc/openvpn/vpnbook-us1-udp53.ovpn", "r")
