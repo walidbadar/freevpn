@@ -18,7 +18,7 @@ open('password.txt', 'wb').write(requests.get(URL).content)
 vpn = 'https://www.vpnbook.com/free-openvpn-account/VPNBook.com-OpenVPN-US1.zip'
 response = requests.get(vpn)
 open("/etc/openvpn/openvpn.zip", "wb").write(response.content)
-os.system("sudo unzip -o /etc/openvpn/openvpn.zip")
+os.system("sudo unzip -o /etc/openvpn/openvpn.zip -d /etc/openvpn")
 
 vpnSetting = open("/etc/openvpn/vpnbook-us1-udp53.ovpn", "r")
 replacement = ""
