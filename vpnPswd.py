@@ -27,6 +27,6 @@ for line in vpnSetting:
     changes = line.replace("auth-user-pass", "auth-user-pass /etc/openvpn/password.txt")
     replacement = replacement + changes + "\n"
 vpnSetting.close()
-vpnSetting = open("vpnbook-us1-udp53.ovpn", "w")
+vpnSetting = open("/etc/openvpn/vpnbook-us1-udp53.ovpn", "w")
 vpnSetting.write(replacement)
 vpnSetting.close()
