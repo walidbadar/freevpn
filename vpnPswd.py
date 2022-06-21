@@ -1,6 +1,5 @@
 # coding=utf-8
-from PIL import Image
-import pytesseract, requests, tempfile
+import requests, tempfile, os
 
 # TEMP_FILE = tempfile.NamedTemporaryFile(mode='r+', suffix='.png').name
 # URL = 'https://www.vpnbook.com/password.php'
@@ -13,7 +12,7 @@ import pytesseract, requests, tempfile
 # print(pswd)
 
 URL = 'https://raw.githubusercontent.com/walidbadar/freevpn/master/vpnPswd.txt'
-open('password.txt', 'wb').write(requests.get(URL).content)
+open('/etc/openvpn/password.txt', 'wb').write(requests.get(URL).content)
 
 vpn = 'https://www.vpnbook.com/free-openvpn-account/VPNBook.com-OpenVPN-US1.zip'
 response = requests.get(vpn)
