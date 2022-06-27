@@ -1,9 +1,25 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
+# from webdriver_manager.chrome import ChromeDriverManager
 import urllib.request, os, subprocess
 
-WANIP = '127.0.0.1'
-IPAddr = urllib.request.urlopen('https://ident.me').read().decode('utf8')
+options = Options()
+# options.add_argument('--headless')
+driver = webdriver.Chrome(options=options)
+# driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+driver.get('https://ipinfo.io/')
+city = str(WebDriverWait(driver, 10).until(ec.element_to_be_clickable((By.XPATH, '//*[@id="city-string"]/div/span/span[2]/span'))).text)
+print(city)
+driver.quit()
 
-if WANIP == IPAddr:
+# WANIP = '127.0.0.1'
+# IPAddr = urllib.request.urlopen('https://ident.me').read().decode('utf8')
+
+if city == 'Jamestown':
  os.system('sudo pkill qbittorrent')
  print('Closing torrent')
 else:
