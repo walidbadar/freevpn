@@ -23,7 +23,7 @@ driver.quit()
 # IPAddr = urllib.request.urlopen('https://ident.me').read().decode('utf8')
 
 if city == 'Jamestown':
- os.system('sudo pkill qbittorrent')
+ os.system('sudo killall qbittorrent')
  print('Closing torrent')
 else:
  subprocess.Popen(['sudo -u pi /usr/bin/qbittorrent'], shell=True)
