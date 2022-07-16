@@ -3,8 +3,8 @@ nmcli connection add type team con-name myteam ifname team0 config '{"runner": {
 10.0.1.31/8
 
 Create a profile for each team port (slave):
-nmcli connection add type team-slave con-name myteam-port1 ifname eno53 master team0
-nmcli connection add type team-slave con-name myteam-port2 ifname eno54 master team0
+nmcli connection add type team-slave con-name myteam-port1 ifname enp0s8 master team0
+nmcli connection add type team-slave con-name myteam-port2 ifname enp0s9 master team0
 
 Delete connection by name via Network Manager:
 nmcli connection delete id <connection name>
