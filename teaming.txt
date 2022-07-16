@@ -6,11 +6,11 @@ nmcli connection add type team-slave con-name myteam-port1 ifname enp0s8 master 
 nmcli connection add type team-slave con-name myteam-port2 ifname enp0s9 master team0
 
 Delete connection by name via Network Manager:
-nmcli connection delete id <connection name>
+nmcli connection delete id 'connection name'
 
 Bring the team and port interfaces up/down:
-nmcli dev dis INAME
-nmcli con up CNAME
+nmcli dev dis 'INAME'
+nmcli con up 'CNAME'
 
 INAME is the device name of the team or port interface to be managed.
 CNAME is the connection name of the team or port interface to be managed.
