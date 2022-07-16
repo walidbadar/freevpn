@@ -1,5 +1,6 @@
 Create the team interface connection profile with nmcli (static IP addressing):
-nmcli connection add type team con-name myteam ifname team0 config '{"runner": {"name": "activebackup"}, "link_watch": {"name": "ethtool"}}' ip4 222.22.1.22/24 10.0.1.31/8
+nmcli connection add type team con-name myteam ifname team0 config '{"runner": {"name": "activebackup"}, "link_watch": {"name": "ethtool"}}' ip4 222.22.1.222/24 ip4 
+10.0.1.31/8
 
 Create a profile for each team port (slave):
 nmcli connection add type team-slave con-name myteam-port1 ifname eno53 master team0
