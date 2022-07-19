@@ -1,21 +1,17 @@
-Create the team interface connection profile with nmcli (static IP addressing):
-nmcli connection add type team con-name myteam ifname team0 config '{"runner": {"name": "activebackup"}, "link_watch": {"name": "ethtool"}}' ip4 222.22.1.222/24 gw4 222.22.1.224 ip4 10.0.1.31/8
+import socket
+import os
 
-Create a profile for each team port (slave):
-nmcli connection add type team-slave con-name myteam-port1 ifname enp0s8 master team0
-nmcli connection add type team-slave con-name myteam-port2 ifname enp0s9 master team0
+UDP_IP = "192.168.1.110"
+UDP_PORT = 4000
 
-Delete connection by name via Network Manager:
-nmcli connection delete id 'connection name'
+sock = socket.socket(socket.AF_INET, # Internet
+                     socket.SOCK_DGRAM) # UDP
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+sock.bind((UDP_IP, UDP_PORT))
 
-Bring the team and port interfaces up/down:
-nmcli dev dis 'INAME'
-nmcli con up 'CNAME'
-
-INAME is the device name of the team or port interface to be managed.
-CNAME is the connection name of the team or port interface to be managed.
-
-  
-
-
-	
+while True:
+    data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
+    print((data))
+    if data=='shut':
+        print("Shutting Down")
+        os.system("poweroff")
